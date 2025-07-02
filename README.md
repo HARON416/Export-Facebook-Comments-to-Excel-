@@ -1,7 +1,12 @@
-# Export Facebook Comments to Excel
+Export Facebook Comments to Excel
 
-**Export Facebook Comments to Excel** is a free tool that allows you to export Facebook post comments to Excel without limits.
+This tool extracts Facebook comments and exports them to Excel.
 
-For support or inquiries, feel free to contact me via **WhatsApp: +254718448461** or **Email: haronkibetrutoh@gmail.com**.
+Note: This version uses class-based selectors and may struggle with large posts—performance typically maxes out at around 5,000 comments due to browser memory limits.
 
-**Happy scraping!** 🚀
+If you need a premium version that uses Facebook's API to extract tens of thousands of comments reliably, feel free to reach out.
+
+📞 WhatsApp: +254 718 448 461
+📧 Email: haronkibetrutoh@gmail.com
+
+Happy scraping! 🚀
