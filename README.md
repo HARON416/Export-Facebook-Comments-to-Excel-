@@ -10,10 +10,10 @@ This tool extracts **Facebook comments** and exports them to Excel.
 
 Upgrade to the **premium version** that uses platform APIs to extract **tens of thousands of comments reliably**.
 
-✅ Supports:
-- **Facebook**
-- **Instagram**
-- **TikTok**
+✅ Includes:
+- **Facebook Comments Scraper**
+- **Instagram Comments Scraper**
+- **TikTok Comments Scraper**
 
 ---
 
