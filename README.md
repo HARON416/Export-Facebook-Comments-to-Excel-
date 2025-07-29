@@ -1,6 +1,6 @@
 # 🚀 Facebook Comments Scraper (Free Limited Version)
 
-This tool scrapes up to **100 main comments** from a public Facebook post, share link, or reel. Results are exported to an Excel file.
+This tool scrapes up to **500 main comments** from a public Facebook post, share link, or reel. Results are exported to an Excel file.
 
 > ⚠️ **Note:** This free version does **not** include replies or unlimited comments.  
 > 💎 If you need unlimited comments and replies, contact me for a one-time premium fee.
@@ -10,7 +10,7 @@ This tool scrapes up to **100 main comments** from a public Facebook post, share
 ## ✨ Features
 
 - ⚡ **Fast extraction** using Facebook's GraphQL API (works 99% of the time)
-- 📝 Extracts up to 100 main comments from Facebook posts, share links, and reels
+- 📝 Extracts up to 500 main comments from Facebook posts, share links, and reels
 - 🔗 Follows share link redirects automatically
 - 🆔 Encodes post IDs for Facebook's GraphQL API
 - 🔄 Handles Facebook token rotation to mitigate blocking by Facebook's anti-bot system
