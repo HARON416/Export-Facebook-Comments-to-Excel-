@@ -1330,6 +1330,7 @@ func main() {
 	fmt.Printf("🎯 Actual processing time: %d minutes %d seconds (%.1f seconds total)\n",
 		minutes, seconds, actualDuration.Seconds())
 	fmt.Printf("📂 Exported comments to Excel: %s\n", excelPath)
+	fmt.Printf("Need more comments and replies?\nContact the developer:\nEmail: haronkibetrutoh@gmail.com\nWhatsApp: +254718448461")
 }
 
 func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string) (string, error) {

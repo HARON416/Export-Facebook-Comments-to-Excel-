@@ -1,6 +1,6 @@
 # 🚀 Facebook Comments Scraper (Free Limited Version)
 
-This tool scrapes up to **500 main comments** from a public Facebook post, share link, or reel. Results are exported to an Excel file.
+This tool scrapes up to **100 main comments** from a public Facebook post, share link, or reel. Results are exported to an Excel file.
 
 > ⚠️ **Note:** This free version does **not** include replies or unlimited comments.  
 > 💎 If you need unlimited comments and replies, contact me for a one-time premium fee.
@@ -10,7 +10,7 @@ This tool scrapes up to **500 main comments** from a public Facebook post, share
 ## ✨ Features
 
 - ⚡ **Fast extraction** using Facebook's GraphQL API (works 99% of the time)
-- 📝 Extracts up to 500 main comments from Facebook posts, share links, and reels
+- 📝 Extracts up to 100 main comments from Facebook posts, share links, and reels
 - 🔗 Follows share link redirects automatically
 - 🆔 Encodes post IDs for Facebook's GraphQL API
 - 🔄 Handles Facebook token rotation to mitigate blocking by Facebook's anti-bot system
@@ -18,7 +18,15 @@ This tool scrapes up to **500 main comments** from a public Facebook post, share
 
 ---
 
-## 🛠️ Usage
+## 🖥️ Download Executables
+
+- 🪟 **Windows:** [Export_Facebook_Comments_to_Excel.exe](https://www.mediafire.com/file/5klu3cadfaw1o06/Export_Facebook_Comments_to_Excel.exe/file)
+- 🍏 **Mac:** [Export_Facebook_Comments_to_Excel_Mac](https://www.mediafire.com/file/ocu90xym2cwx7t8/Export_Facebook_Comments_to_Excel_Mac/file)
+- 🐧 **Linux:** [Export_Facebook_Comments_to_Excel_Linux](https://www.mediafire.com/file/fmkdd357mapp4c3/Export_Facebook_Comments_to_Excel_Linux/file)
+
+---
+
+## 🛠️ Usage (Source)
 
 ```bash
 go run main.go <facebook_post_url_or_share_link>
@@ -74,3 +82,5 @@ go run main.go <facebook_post_url_or_share_link>
 
 - ✉️ **Email:** haronkibetrutoh@gmail.com
 - 📱 **WhatsApp:** +254718448461
+
+---
