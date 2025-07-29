@@ -951,7 +951,7 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 	hasNextPage := true
 	retryCount := 0
 	maxRetries := 5
-	mxc := 501
+	mxc := 500
 
 	fmt.Printf("📄 Fetching comments page %d...\n", pageCount)
 	var response string
