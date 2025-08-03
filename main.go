@@ -24,135 +24,73 @@ var (
 )
 
 type FacebookConfig struct {
-	XFbDebug                   string
-	CSPNonce                   string
-	LSDToken                   string
-	Cookies                    string
-	ExpansionTokens            map[string]string
-	LastUpdated                time.Time
-	CommentsUserID             string
-	CommentsRequestID          string
-	CommentsHash               string
-	CommentsRevision           string
-	CommentsSession            string
-	CommentsHashSessionID      string
-	CommentsDynamic            string
-	CommentsCSR                string
-	CommentsHSDP               string
-	CommentsHBLP               string
-	CommentsSJSP               string
-	CommentsFbDtsg             string
-	CommentsJazoest            string
-	CommentsSpinR              string
-	CommentsSpinT              string
-	RepliesUserID              string
-	RepliesRequestID           string
-	RepliesHash                string
-	RepliesRevision            string
-	RepliesSession             string
-	RepliesHashSessionID       string
-	RepliesDynamic             string
-	RepliesCSR                 string
-	RepliesHSDP                string
-	RepliesHBLP                string
-	RepliesSJSP                string
-	RepliesFbDtsg              string
-	RepliesJazoest             string
-	RepliesSpinR               string
-	RepliesSpinT               string
-	NestedRepliesUserID        string
-	NestedRepliesRequestID     string
-	NestedRepliesHash          string
-	NestedRepliesRevision      string
-	NestedRepliesSession       string
-	NestedRepliesHashSessionID string
-	NestedRepliesDynamic       string
-	NestedRepliesCSR           string
-	NestedRepliesHSDP          string
-	NestedRepliesHBLP          string
-	NestedRepliesSJSP          string
-	NestedRepliesFbDtsg        string
-	NestedRepliesJazoest       string
-	NestedRepliesSpinR         string
-	NestedRepliesSpinT         string
+	XFbDebug              string
+	CSPNonce              string
+	LSDToken              string
+	Cookies               string
+	ExpansionTokens       map[string]string
+	LastUpdated           time.Time
+	CommentsUserID        string
+	CommentsRequestID     string
+	CommentsHash          string
+	CommentsRevision      string
+	CommentsSession       string
+	CommentsHashSessionID string
+	CommentsDynamic       string
+	CommentsCSR           string
+	CommentsHSDP          string
+	CommentsHBLP          string
+	CommentsSJSP          string
+	CommentsFbDtsg        string
+	CommentsJazoest       string
+	CommentsSpinR         string
+	CommentsSpinT         string
 }
 
-func CountFacebookCommentsAndReplies(comments []FacebookComment) (int, int, int) {
+func CountFacebookComments(comments []FacebookComment) int {
 	mainComments := 0
-	totalReplies := 0
-
 	for _, comment := range comments {
 		if comment.CommentParent == nil && comment.CommentDirectParent == nil {
 			mainComments++
-		} else {
-			totalReplies++
 		}
 	}
-
-	totalAll := mainComments + totalReplies
-	return mainComments, totalReplies, totalAll
+	return mainComments
 }
 
 func getDefaultFacebookConfig() *FacebookConfig {
 	return &FacebookConfig{
-		XFbDebug:                   "",
-		CSPNonce:                   "",
-		LSDToken:                   "dhL62Eyc-Qfy6VJ1VqAUGF",
-		Cookies:                    "datr=W-nLZxRTui39vfU0vdb0SHEr; sb=XOnLZzjZUznCGJQE89_qDE7G; ps_l=1; ps_n=1; c_user=61575555323184; wd=1366x681; fr=1yNe7T5XzIJ1KN5oo.AWfU6GqGgl-LvHr5svl6aAikgx8NlmsbLCWfszOtaaA-W_Yitvk.BohXK-..AAA.0.0.BohXK-.AWewc7qC6fmh_M9g1vOY8yjs75E; xs=18%3Ay5FhAH33c2RlRw%3A2%3A1753204356%3A-1%3A-1%3A%3AAcXKc2wtnhLk8A5un026fuGGsti5sPd4ZS01W8_nKpk; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1753576569657%2C%22v%22%3A1%7D",
-		ExpansionTokens:            make(map[string]string),
-		LastUpdated:                time.Now(),
-		CommentsUserID:             "61575555323184",
-		CommentsRequestID:          "17",
-		CommentsHash:               "20296.HYP%3Acomet_pkg.2.1...0",
-		CommentsRevision:           "1025191199",
-		CommentsSession:            "39tg6c%3Ahv39n2%3Aw8szb4",
-		CommentsHashSessionID:      "7531553972170399721",
-		CommentsDynamic:            "7xeUjGU5a5Q1ryaxG4Vp41twWwIxu13wFwhUKbgS3q2ibwNw9G2Saw8i2S1DwUx60GE3Qwb-q7oc81EEc87m221Fwgo9oO0-E4a3a4oaEnxO0Bo7O2l2Utwqo31wiE4u9x-3m1mzXw8W58jwGzEaE5e3ym2SU4i5oe8464-5pUfEe88o4Wm7-2K1yw9q2-awLyESE2KwwwOg2cwMwhEkxebwHwKG4UrwFg2fwxyo566k1FwgUjz89oeE4WVU-4FqwIK6E4-mEbUaU2wwgo620XEaUcGy8qxG",
-		CommentsCSR:                "g9Y74bhLf3sh6l5gD5NYsGnllbEJiiHW5N5jR229eB5R4RYDexaFbv9sWVlZ9l-RPfVlv8ikybriAWmBuDqDWmFTFyES45UJDVmCAFlyGBKqEGh5BQFHGdh9VFpqp4UDxB28SF8GbHDzebimFaBKmlkFpKeDBGbl1O8x24u48CeLKjjAAyGCxWEpVE-5oSq5m6WBDwMyoK3CucG8wQzVV8hy89VUnJa6o6q8xTwIBwXwUzoqwCXgO27UnBCwQz-13xOcCK2uU-dwzwNU98K2e5EcoK2249FazU8Egxa7EdUizUak1swgEW3S3aE8UaEf8mw9qi6Eeo989Uhggxydx2rU4S0Pki1Fw2cEy0PE6W1dw55wYw5LwWw5Vw67CCigPa0iSexd1nzk2203_l00g6U2gw0Bzw0e0-0pm1fgey07wo3mw2aE2kw3jE35Hw15S0op04-y85ap06dwf-08qwLw64cdw3A829wzCw7WG0k-1Kw1q608_w0zUw1Sh03aU0GF05cK0btS0n50FwiU1rU1so0l8gfp2w3NE",
-		CommentsHSDP:               "g4olEG4Fq8wCzAi2itaDagqAGF8hEoAxW7EyBiEF7f2OiQwz7I43F-CsokgljNT2fch4jHOhh2q649azkiyNrdi8NqiIR5AzF8EIqyliq5IGHh1chh78bhnFP4A5EyA22NA4KKZaPkMYB5h25EdSMVkH3ZEoCrphD9pGa9g-VWiBcuFpAfozQ4pJeXq8yP3yxKv8bpqoCbgh8UYiIiVLg-VdQigJa8mzJAlGyd8N9pD8RahavfkraR5Vtq5O6uq9amy35gyBwCglzp58mKaaZAJ7Eiy4AKtJh1WLwDzrG8glymgxF9Ru4p8HAqEwyUKbA8IHGAVQ5k9xl3p9qKENAfpUsAxea8mtpbJCADy_seyU8QiiUcHaeizppy3kO8q9Koxk2KAAXc9xxDmcKi8F1e9XyofU9EKEepEuAt2EhAleuaDUy1uAwYxN4zkh1SewiER2iwSgjo9CF8boiwdK5oKbwDwAz86q4o6C1nwmEb4362WbxuFE8i0iE566j192A5UfEmwkHwwwIyNMfotwnk2Zc80WwBxwd0ookwkZ0Nada0_E1co8E4GOwMw4izU522e1zwfefwq82Pg2Aw4nwJg1080EXxa18wZw4Hw4Twno22w6twv8aU1vUsw55wSw4sw8G0GE-1Aw49w41waO0HEdU0Gu084w8m0afwe214wfq0liq",
-		CommentsHBLP:               "08fgG5Vo2no-1Awgk48eUy6o5i2G1GwhUvw4AwMwh9E429wc23y8wRxS2S4bwUwHx25k2y8zEsBzouwb62W2Ja5VE20Cwt8twpo6im1cg4GEvwkU2LwG-bxW4FU6W1vzrwwwq84m5850wK1ywaSbG1mwpEhw4swJwjEe9k1Lxi3a9xO1AwGwkE36wdS0x82tU4jo1m81houxC0P85m1gxefwde0wU-11xWu58lw960lWdx-223h0eG08-wbG11AyE1881dU5um0wE1nUfoao51wHwf210wjoswoE3ywSw4swvEK1GzrwJzXwo8lwvU7e0g60H8f8y1EyEK22ey80E-8w5SCwsEG1kwMG3m3GEaoowKgco490uoowGxC1nwe248W2i1TZk1oyE4m0VU42",
-		CommentsSJSP:               "g4olEG4Fq8wCzAi2itaDagqAGF8hEoAyNa7EyBiEF7f2OiQpNcuMNeWhbhOAptuljPP5Wl_FV4heKQx9mlECgB6p9av4BcG8hOqiAbhp8Wicz8FaAtd4mElxibDBt1iniyChwTyVQ2NpoKcigS9Bp8_wGgO4bxqEy488UxDy8oyUrww8489IwJyk2K5EuQ68miyaHuQ45x6dh9O129GGF0wAG8kxDx9y23agym2u5oS48ppbhW4EwSu5VK2u3i9g-45x616xiqbglgC5k4EyUa88ocEy1lwKwSIwZ1qtzkZ8q9Koxk2KbCoC66togx11e9U23wVCwAgvAmcxi0Gotxx049qAw4sxm3-0mO0KEbEK5UaS0PQ1ywbKb70Zwv8bQMw1wxwd03qo4UE1gU3Ew5Iwbd01nLxa18w",
-		CommentsFbDtsg:             "NAfvDFxvSqCXNn87L7j47AEjxnv2v_FAZqEjdx_D3XOEjeJUy3ov3_g%3A18%3A1753204356",
-		CommentsJazoest:            "25520",
-		CommentsSpinR:              "1025191199",
-		CommentsSpinT:              "1753576559",
-		RepliesUserID:              "61575555323184",
-		RepliesRequestID:           "1u",
-		RepliesHash:                "20296.HYP%3Acomet_pkg.2.1...0",
-		RepliesRevision:            "1025191199",
-		RepliesSession:             "x4pz4j%3Ahv39n2%3Aw8szb4",
-		RepliesHashSessionID:       "7531553972170399721",
-		RepliesDynamic:             "7xeUjGU5a5Q1ryaxG4Vp41twWwIxu13wFwhUKbgS3q2ibwNw9G2Saw8i2S1DwUx60GE3Qwb-q7oc81EEc87m221Fwgo9oO0-E4a3a4oaEnxO0Bo7O2l2Utwqo31wiE4u9x-3m1mzXw8W58jwGzEaE5e3ym2SU4i5oe8464-5pUfEe88o4Wm7-2K1yw9q2-awLyESE2KwwwOg2cwMwhEkxebwHwKG4UrwFg2fwxyo566k1FwgUjz89oeE4WVU-4FqwIK6E4-mEbUaU2wwgo620XEaUcGy8qxG",
-		RepliesCSR:                 "g9Y74bhL174hYl2sn7NObORbNcAGZhshkl229eB5R4RPsW4GAJYBPHWvTlvIAP-lncikybviAWmBtnqDRmFtWoGum9A9XhCvBqtGloGHrGWyF4GGJaHKAuh4DCBBFAt2ueGt28Th8GirmiFGHCIBqHGmVpliBCUWu-GVBgsy8gx7x29zHXAQQV8GFFrDKVaCG9XpEGiuqWzqF6zdxiqFkAEhxW9yVbyA2iucG8wQzVV9EG8gGUnDyEOQEWazU46LBDAKi6e2Om2Sdx2eDx2dxqVojzeQp4Gez_UlBCAwyK8z-13xOcGXwDLzoSm7olxLwAyU8UmwNyU88gCAGfwyx24EsUdUizUak1rg4aewZwOG2e2G3O5E2mAxGi3i2i2u4k48ozogC-1dwcR4wqo3Vyog80hd5y87J0ko6W1dw55wYw5LwWxu0m61nw4LCCigPa1X81PwWzEjglUR0ww0_Rg041K0A809oU03wfw6lwjQ3Ew1U60RE0yG0B80QW0NqU4W043E1xA0jW8wkFA0lK360_U0xG2-0ogMS08zw5Iw8C2eq0vGE1jU6W08ew2no1d80z-05aU0YO07p40cHw2GA0kOU0JTo1sk2C1bw5Lw8S0UU0l8gfp2w3NE",
-		RepliesHSDP:                "g4okkxamy89EV4wADiFOA6FaGi4q6984OQAx17f2OiQwz7I4mDWpNxh1lf7gDN2i8WsAkgCxx2iER4EImPkycmAHdhp8Wiab6EBkCxraGQgj4khO2QlWsN91q8F0wI6mKZaPkMYB5h25EdSMVkH3ZEoCrphD9peyykfJ6FakNAGQp3SxckkGiQBXq8yP4gwErDO2SmC9yQ4ief4H4KrQfKjt4Abiy5EXp5qeQz4BCszkF4FYZhIHknBREn8pVEAFq8cl2am2p1mdAkxqUEHSiQuxa8iiVSR47G-2udKFS5oBA8qitnx6iaV6G88KbyV2baWFet1l2olgSimHGcp3Su798jyy5DmiXpF9ULT3EK2d4AK3aOzAESmowRcy6yrC8l0HF9eP2oopRzbAyagjyuUC3-2qbG3Cq7F7gG4p5jDyF-8wnF8f8sh8R4gtzE4GdgAEdA4S2pGi2S4E3rxmbyU9U98O1Cx61FwlU5G2N0NwKyUnGq24w4G1hxAMigF1u3W5E5aU88b8Is3S7o5R0Lj20eE9oo3g66585fgciziwfW0j62a1aIEc814E-1gwzwoU3PzU6y0IQ0F815Ubk0g20aeUiwi8fo1aU1dU5S0wE1Do7O2K0n-781hodE1782awaGfwp812o10o2IwaW3u04H825w7Nw9S0U84i0ZE1mU",
-		RepliesHBLP:                "08fgG5Vo2no-1AwgkfgeUy6o5i2G1GwhUvw4AwMwh9E429wc23y8wRxS2S4bwUwHx25k2y8zEsBzouwb62W2Ja5VE20Cwt8twpo6im1cgdEjG7U5e0HUaLyUuxau1KwnUSU886y4ocUkyE4kwK1ywaSbG1mwpEhw9a2C1vwJg8Uaoe9k1Lxi3a9xO1AwGwkE4W1TwdS0x82tU4jo1m81houxC0BoaEK1lwk8jzU3jw8efwgouDxi5o27yo3wxe1FzovxGm3h0eG08-wbG11AyE1883awr85um0wE1nUfoao51wwyEeU2Qwg84S786a0UEdE1787WbwqESUbo-U625o7-1Pwf_waO3O8wq8GbwwzEzw2z48w5SCwrWyE5i32EdoeGwFxy2V0NwgA1Vxt0GxDwlo3wx2ewAwt_l0m8G3-m0VU42",
-		RepliesSJSP:                "g4okkxamy89EV4wADiFOA6FaGi4q6984OQAx17f2OiQAD4NX15F4FD65RVlffcGWl_FSAyeCQx9mgy9A9hCiiDN9jay4sCAF2QmieAz8OaiF7jh5G5okyVVngkBQEFAogCx-bDgb5ByUN93oClAz-2F38gK5GCUgxmdy6p5Q6bdj458QFqxsxk9wCO2S9gaUmxXgoxpa8GJXgUC4oR4D848CGGA22iExi6u4C88cF29o9UlzogxBAJ7Eiy3pUnCU9Usxu9g-45x616xiqbglgC5k4EyUa88ocEy1lwKwSIwZ1qtzkZ8q9Koxk2KbCoC66togx11e9U23wVCwAgvAmcxi0Gotxx049qAw4sxm3-0mO0KEbEK5UaS0PQ1ywbKb70Zwv8bQMw1wxwd03qo4UE1gU3Ew5Iwbd01nLxa18w",
-		RepliesFbDtsg:              "NAfvDFxvSqCXNn87L7j47AEjxnv2v_FAZqEjdx_D3XOEjeJUy3ov3_g%3A18%3A1753204356",
-		RepliesJazoest:             "25520",
-		RepliesSpinR:               "1025191199",
-		RepliesSpinT:               "1753576559",
-		NestedRepliesUserID:        "61575555323184",
-		NestedRepliesRequestID:     "w",
-		NestedRepliesHash:          "20296.HYP%3Acomet_pkg.2.1...0",
-		NestedRepliesRevision:      "1025191199",
-		NestedRepliesSession:       "rcnfri%3A98dq38%3A41yfi5",
-		NestedRepliesHashSessionID: "7531562106898030442",
-		NestedRepliesDynamic:       "7xeUjGU5a5Q1ryaxG4Vp41twWwIxu13wFwhUKbgS3q2ibwNw9G2Saw8i2S1DwUx60GE5O0BU2_CxS320qa321Rwwwqo462mcwfG12wOx62G5Usw9m1YwBgK7o6C0Mo4G17yovwRwlE-U2exi4UaEW2G1jwUBwJK14xm3y11xfxmu3W3y261eBx_wHwoE2mwLyEbUGdG0HE88cA0z8c84q58jyUaUbGxe6Uak0zU8oC1hxB0qo4e4UO2m3G1eKufxamEbbxG1fBG2-2K0E8461wweW2K3aEy6Eqw",
-		NestedRepliesCSR:           "g9Y74bhL1p3k9Nsf8IlbEJiiHR5N5jMCyjFhthDOsW4GBlYBPHmBZRnXnc_AtYx9i8JJ9vFqlWeF-BGtWoGdx1uVSvBqqiBl2qBKqEGhaFtaqWy94iuWBBFAjyu6k8zqAyEKKucUJ9qAGmVpliBCUWiFqyRgsy8gx7x29gS-VddeiaGq7GxDCzUlzpElokCGmXwMyoK2a5FUOEy3ifDAx68wDDxuQEpwNwQy8tUb9oeUvxydxG2rJ388-5VpEd8_wgUsz9HwDKfzo8Ucu2ibwzxq36bwwx2qiE-3e4EuwTxafwFg5J0gEW3S3aE8UaEf8mw9qi6Eeo989Uhggxydx2rU4S0Pki1Fw2cEy0PE6W1dw55wYw5LwWw5Vw67CCigPa0iSexd1nzk2203_l00g6U2gw0Bzw0e0-0pm1fgey07wo3mw2aE2kw3jE35Hw15S0op04-y85ap06dwf-08qwLw64cdw3A829wzCw7WG0k-1Kw16O0ji08_w0zUw1FC0OA0cHw2GA0kOU0JTo1sk2C1bw5Lw8S0UU0l8gfp2w3NE",
-		NestedRepliesHSDP:          "g4p78aE9EV4wLid2OiGAAyq6984O8Ax17f3iQwz2215F-CsokgkcMDN2h6GsAkga458R4EIoxa2i1my8p6EBkCxvazA2kj8b8TFP4A5EyH227giWX8Hdj3Okl2G3tIelaM_q69CSkpOmqyykfJ6FalGuFpAfozQ4pJeXq8yP3yxKv8bpqoCbgh8UYiIiVLg-VdQigJa8mzJAlEXicimpOdiAiDPR6OJhunmxsxDCyiBEwNk8Fo9A5oikxqUEHSiQuxa8iiVSR47G-2udKFS5oBA8qitnx6iaV6G88KbyV2baWFet1l2olgSimHGcp3Su798jyy5DmiXpF9ULT3EK2d4AK3aOzAESmowRcy6yrC8l0HF9eP2oopRzbAyagjyuUC3-2qbG3Cq7F7gG4p5jDyF-8wnF8f8sh8R4gtzE4GdgAEdA4S2pGi2S4E3rxmbyU9U98O1Cx61FwlU5G2N0NwKyUnGq24w4G1hxAMigF1u3W5E5aU88b8Is3S7o5R0Lj20eE9oo3g66585fgciziwfW0j62a1aIEc814E-1gwzwoU3PzU6y0IQ0F815Ubk0g20aeUiwi8fo1aU1dU5S0wE1Do7O2K0n-781hodE1782awaGfwp812o10o2IwaW3u04H825w7Nw9S0U84i0ZE1mU",
-		NestedRepliesHBLP:          "08fgG5-U2no-fwl8453Q3K8xC1kwGwqE9Uvx-0ii3214Cwg8C0M8e8y3m7obogK3y7KFUgxl0Ey8W79oS7E2NwKwHixuq0w9E7i7o6m1ABwj41aG7U5e0HUaLyUuxau1KwnUSU886y15xiawhi2U6a0HoKE5q1Cx60AE29wJwjEe9kU6K58cEC786i2G1iwjE7u0RVo24w9Twhdw5ow55xW6o30yU5m1gxefwde0wU-11xWu58lw960lWdx-223h0eG08-wbG11AyE1881dU5um0wE1nUfoao51wHwf210wjoswoE3ywSw4swvEK1GzrwJzXwo8lwvU7e0g60H8f8y1EyEK22ey80EW9w5SCwrWyE5i32EdoeGwFxy2V0NwgA1Vxt0GxDwlo3wx2ewAwt_l0m8G3-m0VU42",
-		NestedRepliesSJSP:          "g4p78aE9EV4wLid2OiGAAyq6984O8Ax17f3iQAD4NX15F4FD65RVlffcJql_FSAhGCQx9ilq9A9hCiiDN9jay4sCAF2QmieAz8OaiF7jmBFU_yoGbQilQ59taFShwTyut0Imm9oN93oClAz-2F38gK5Gy8gxmdyFUy68K6U82122r8boB0Hxq7J1y5AEyGTJ3yohzkiswgyqGGg89ay58pUiowwOA8BwDxm7EppbhW4EwSu5VK2u78nykfx1ohwhEkCyQ5k9xl1a8K2y263a8wlobEdH8fgmDoRfi6yrC8l0HyVC9xxDm48ggjyu0wUepE947V5z8kwaC7oog12mF8178lw_w5IwbG2Wbxu2JwcZ0oE2XyNMfo7O2Zc80o8o3g0SC1ea0ke0W81r82Pg0lXUiwi8",
-		NestedRepliesFbDtsg:        "NAfujEplFPkTHueyZIkbQl3PP6Mog3gByHaPJj-n6ZA_Yp_0VUitZkw%3A18%3A1753204356",
-		NestedRepliesJazoest:       "25640",
-		NestedRepliesSpinR:         "1025191199",
-		NestedRepliesSpinT:         "1753578453",
+		XFbDebug:              "",
+		CSPNonce:              "",
+		LSDToken:              "3bL9I7RJqQAmvrzk8ckc3m",
+		Cookies:               "sb=XOnLZzjZUznCGJQE89_qDE7G; ps_l=1; ps_n=1; datr=7qiMaDwDu83IF3sgoxhRvmsx; locale=en_GB; c_user=61555590462485; dpr=1.5; wd=1366x681; fr=1PIUJUKzs5V8kf9PV.AWcHvGKPZ2BAaYwrgQbDVnZAaiOzGv8j5uVVJ3TPW31Q6Tcm3pY.Boj3Er..AAA.0.0.Boj3Er.AWcy7vshu5ahtNVjDqYHtlh5rfM; xs=19%3AD6hlVJsfNlxziw%3A2%3A1754048966%3A-1%3A-1%3A%3AAcUQ5p0cKnQfIkbPMjDSgSEcRHBKqdVqRcsqM8SovA; presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1754231368846%2C%22v%22%3A1%7D",
+		ExpansionTokens:       make(map[string]string),
+		LastUpdated:           time.Now(),
+		CommentsUserID:        "61555590462485",
+		CommentsRequestID:     "15",
+		CommentsHash:          "20303.HYP%3Acomet_pkg.2.1...0",
+		CommentsRevision:      "1025463513",
+		CommentsSession:       "2a2sph%3A9ep293%3A64cc7d",
+		CommentsHashSessionID: "7534366326965440049",
+		CommentsDynamic:       "7xeUjGU5a5Q1ryaxG4Vp41twWwIxu13wFwhUngS3q2ibwNw9G2Saw8i2S1DwUx60GE3Qwb-q7oc81EEc87m221Fwgo9oO0-E4a3a4oaEnxO0Bo7O2l2Utwqo31wiE4u9x-3m1mzXw8W58jwGzEaE5e3ym2SU4i5oe8464-5pUfEe88o4Wm7-2K0-obUG2-azqwaW223908O3216xi4UK2K2WEjxK2B08-269wkopg6C13xecwBwWwjHDzUiBG2OUqwjVqwLwHwa211wo83KwHwOG8xG6E",
+		CommentsCSR:           "g4Zstk4RnsAdMkbb5ED25hneOIbNibfOjEl4nRsDTV0FP8BFh2QWRFVmjnjinHC8KyKATcLihkEKjDGN6Fahm-VlAhAim8SiVmuim88GBUOXhkFEWhdd7BLh8GkyBUCVkegy7p-XFVVqVVFoOF-bXz9ooXU9EhzoyjDFpbDG8xG4oOECum6UWdK5VoiWjGAjwPx25p8Cm6rzVUm-6Vbxa4o-4E-78ao8k4oG2S4V8dE8oSEaUaUyeyFbwBwAGAm7Vp8C2yqvxW5842UgG5oW3udzEgyo9UbFV8Tz8pwjaxu0zo9ecwRBgbUkU8U5q4Upxy3e1Zxi1iwkUxe48nwt99oiyqU4i0XEvJ5m3S1gg8o7q0KU2WxN2o3fxWah6Q5E4i0Xk4V88m6o8UC8wJxt5w9G0S8dk2y22E6a0I8Ojwu8W0xUmwpEcF8lyQU9EbEjwJw0Nxw0Fow1te0ZQ04mE1Io6i05IU02oVw0Raw2ko9U3ZU1uE0Ye0Ho0gVwmJ01lV022i0Ew3l8O085w7MwJw1E6t04pg0DK09-w4YIM0dAi02zE3fw76w1g-gE0l_w61w0DrK0DUG0aAFw1e-0g8wow",
+		CommentsHSDP:          "g4pC32agf85ai8F1Yy78y2WkV1n2GcFOPE4kiB4bC494QgyqaN4gyAf4qsgyvrkkzFtEPtEOfqi8AyiAl8gH34y3QlkxWsmxsy48ImwCxsO6jMjGb5hy16h8A9E9Ekh9MKVpp1hMWyW7sikLeYDitBGoFAghAyO6ye7YExy4BLWBgAwlz93tKaPyFoKaK4GHFQm9tn9bbhet2p91522qcldEFegzaGsPAEhPHojrEwGiqAichGe69rh4xkEhgyXCyGK2y8ACjc6my66AQuXyyGpDxmaJEN8WdypyFdoB6mHAxoF28ZAzEGEqc2d3WDwlUynxt7yEgwzgMxqUbOFy9FuF1oM8XyUjwBszCxCEB3FQUW3C6UG4AiQ7ogCiySUFt5HCw8aVV8no8qVU462miF8hyoF2Oxe8K2h0CwZo4hwCyAWK3G1xwio4C0OUy0iG5A5UnG5FHBCc2q12zQ3Z7xu1g7d0ywjWgcqBgmyyFtQaCy2wEwpA3i262l4oexwMAu7Cu0xEfbwiofawhU5G3C17wcy3u1jweG0SkJ0Zw7Twbi1ywEg1y81ko4S540_o3Ww5wwyxW0wUfpo1IHwhU4m0IE6m0Bo3Dwde0SE3OwvE0gywho560PU0xO0W83tx60gO0NE",
+		CommentsHBLP:          "0rUqhogjwiUeomoy1lwJwMwiGxS0BU767U5m1kwaq222aq1vCwau3a1RUrxa3F3E8obUozEjgCawxwk87i2WE3izp8bEhximi1WU4ym3q2O6EdEnwc65EmBw9au10z84mi7eGxq5898yU2awhU9Yw1Po428g1dE5K4WzUlwbi1xwzwwwNwuFEdoW1nwvF6E2bwcu0youzoqwmE1iHwPyE1b9Efo8o2nwCwKw48wba3C2GbwRxG1yw5TwWwaq3K1KwoA0VEmxWawd20zo3iwyxR08e3Sm0U8lx-1VwxK17who2Owprw960VU7-1jwrEe89UGdwd24UK1ixZ6xy040o4m8wTx28BUG0G8G0gO0gyq17wlU4x2o3ix6483Xw9i3ucwmrw8Sq8xS1xwnoy6o10982YBlwCwNw",
+		CommentsSJSP:          "g4pC32agf85ai8F1Yy78y92ikV1n2GcFOEO10j9FjLCch6hdd2y9n8DAZ9KGYKSLrGzFS_qlJFbX9jGO98y8uOBBjjbtqGaxBqGcugFvgF3RlBxaUJebDyonCyShbAgb8ScFyq89hkA79poO8oSAEvV44649Q8ykc4og836Q2e4WxmcAttKaPx2bzElGh2oBRJcIKnDgWghgLzkhcwJrhqwES4Sow-fzpEy69rgakcK68a8yibO1BExxFEgxxwNyod4USp4Ki5yBxeeyE8k2d1G1wBwJwgy0YxqnGgQwMvByUjwF8VEpG9gmg6y7prgtx2pacjyGQ0B8ak2q19wOwam3-1UjGU2swio4C08mgnxuE8po3fwq1M2MBg8iFtQ0V88o6woc97xVDw4hwYw4Dw36kJ0Zw7Tw50g",
+		CommentsFbDtsg:        "NAftgH6NimkTA7FpjPVKRJ4TP7Stn69LiFKB5fdo8eY40pPGVslHb5A%3A19%3A1754048966",
+		CommentsJazoest:       "25285",
+		CommentsSpinR:         "1025463513",
+		CommentsSpinT:         "1754231361",
 	}
 }
 
-func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders http.Header, responseBody string, apiType string) {
+func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders http.Header, responseBody string) {
+	// Track if any tokens were updated
+	tokensUpdated := false
+
 	if xFbDebug := responseHeaders.Get("X-Fb-Debug"); xFbDebug != "" {
 		fmt.Printf("🔄 Updating X-Fb-Debug token: %s...\n", xFbDebug[:20])
 		config.XFbDebug = xFbDebug
+		tokensUpdated = true
 	}
 	if csp := responseHeaders.Get("Content-Security-Policy"); csp != "" && strings.Contains(csp, "nonce-") {
 		nonceRegex := regexp.MustCompile(`'nonce-([^']+)'`)
@@ -160,6 +98,7 @@ func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders ht
 			newNonce := matches[1]
 			fmt.Printf("🔄 Updating CSP nonce: %s\n", newNonce)
 			config.CSPNonce = newNonce
+			tokensUpdated = true
 		}
 	}
 
@@ -175,6 +114,7 @@ func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders ht
 						token := match[1]
 						config.ExpansionTokens["latest"] = token
 						fmt.Printf("🔄 Updated expansion token: %s...\n", token[:30])
+						tokensUpdated = true
 						break
 					}
 				}
@@ -186,51 +126,21 @@ func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders ht
 		reqRegex := regexp.MustCompile(`"__req":"([^"]+)"`)
 		if matches := reqRegex.FindStringSubmatch(responseBody); len(matches) > 1 {
 			newReq := matches[1]
-			if apiType == "replies" {
-				reqSequence := []string{"b", "c", "d", "e", "f", "g", "h", "i", "j"}
-				currentIndex := -1
-				for i, req := range reqSequence {
-					if req == config.RepliesRequestID {
-						currentIndex = i
-						break
-					}
+			reqSequence := []string{"15", "16", "17", "18", "19", "1a", "1b", "1c", "1d", "1e", "1f"}
+			currentIndex := -1
+			for i, req := range reqSequence {
+				if req == config.CommentsRequestID {
+					currentIndex = i
+					break
 				}
-				if currentIndex >= 0 {
-					nextIndex := (currentIndex + 1) % len(reqSequence)
-					config.RepliesRequestID = reqSequence[nextIndex]
-				} else {
-					config.RepliesRequestID = newReq
-				}
-			} else if apiType == "nested_replies" {
-				reqSequence := []string{"w", "x", "y", "z", "10", "11", "12", "13", "14"}
-				currentIndex := -1
-				for i, req := range reqSequence {
-					if req == config.NestedRepliesRequestID {
-						currentIndex = i
-						break
-					}
-				}
-				if currentIndex >= 0 {
-					nextIndex := (currentIndex + 1) % len(reqSequence)
-					config.NestedRepliesRequestID = reqSequence[nextIndex]
-				} else {
-					config.NestedRepliesRequestID = newReq
-				}
+			}
+			if currentIndex >= 0 {
+				nextIndex := (currentIndex + 1) % len(reqSequence)
+				config.CommentsRequestID = reqSequence[nextIndex]
+				tokensUpdated = true
 			} else {
-				reqSequence := []string{"17", "18", "19", "1a", "1b", "1c", "1d", "1e", "1f"}
-				currentIndex := -1
-				for i, req := range reqSequence {
-					if req == config.CommentsRequestID {
-						currentIndex = i
-						break
-					}
-				}
-				if currentIndex >= 0 {
-					nextIndex := (currentIndex + 1) % len(reqSequence)
-					config.CommentsRequestID = reqSequence[nextIndex]
-				} else {
-					config.CommentsRequestID = newReq
-				}
+				config.CommentsRequestID = newReq
+				tokensUpdated = true
 			}
 		}
 	}
@@ -239,56 +149,34 @@ func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders ht
 		sessionRegex := regexp.MustCompile(`"__s":"([^"]+)"`)
 		if matches := sessionRegex.FindStringSubmatch(responseBody); len(matches) > 1 {
 			newSession := matches[1]
-			switch apiType {
-			case "replies":
-				if newSession != config.RepliesSession {
-					sessionPreview := newSession
-					if len(newSession) > 20 {
-						sessionPreview = newSession[:20]
-					}
-					fmt.Printf("🔄 Updating Replies Session: %s...\n", sessionPreview)
-					config.RepliesSession = newSession
+			if newSession != config.CommentsSession {
+				sessionPreview := newSession
+				if len(newSession) > 20 {
+					sessionPreview = newSession[:20]
 				}
-			case "nested_replies":
-				if newSession != config.NestedRepliesSession {
-					sessionPreview := newSession
-					if len(newSession) > 20 {
-						sessionPreview = newSession[:20]
-					}
-					fmt.Printf("🔄 Updating Nested Replies Session: %s...\n", sessionPreview)
-					config.NestedRepliesSession = newSession
-				}
-			default:
-				if newSession != config.CommentsSession {
-					sessionPreview := newSession
-					if len(newSession) > 20 {
-						sessionPreview = newSession[:20]
-					}
-					fmt.Printf("🔄 Updating Comments Session: %s...\n", sessionPreview)
-					config.CommentsSession = newSession
-				}
+				fmt.Printf("🔄 Updating Comments Session: %s...\n", sessionPreview)
+				config.CommentsSession = newSession
+				tokensUpdated = true
 			}
 		}
 	}
 
 	paramMappings := map[string]struct {
-		commentsField      *string
-		repliesField       *string
-		nestedRepliesField *string
-		paramName          string
+		commentsField *string
+		paramName     string
 	}{
-		"__hs":     {&config.CommentsHash, &config.RepliesHash, &config.NestedRepliesHash, "Hash"},
-		"__rev":    {&config.CommentsRevision, &config.RepliesRevision, &config.NestedRepliesRevision, "Revision"},
-		"__hsi":    {&config.CommentsHashSessionID, &config.RepliesHashSessionID, &config.NestedRepliesHashSessionID, "HashSessionID"},
-		"__dyn":    {&config.CommentsDynamic, &config.RepliesDynamic, &config.NestedRepliesDynamic, "Dynamic"},
-		"__csr":    {&config.CommentsCSR, &config.RepliesCSR, &config.NestedRepliesCSR, "CSR"},
-		"__hsdp":   {&config.CommentsHSDP, &config.RepliesHSDP, &config.NestedRepliesHSDP, "HSDP"},
-		"__hblp":   {&config.CommentsHBLP, &config.RepliesHBLP, &config.NestedRepliesHBLP, "HBLP"},
-		"__sjsp":   {&config.CommentsSJSP, &config.RepliesSJSP, &config.NestedRepliesSJSP, "SJSP"},
-		"fb_dtsg":  {&config.CommentsFbDtsg, &config.RepliesFbDtsg, &config.NestedRepliesFbDtsg, "FbDtsg"},
-		"jazoest":  {&config.CommentsJazoest, &config.RepliesJazoest, &config.NestedRepliesJazoest, "Jazoest"},
-		"__spin_r": {&config.CommentsSpinR, &config.RepliesSpinR, &config.NestedRepliesSpinR, "SpinR"},
-		"__spin_t": {&config.CommentsSpinT, &config.RepliesSpinT, &config.NestedRepliesSpinT, "SpinT"},
+		"__hs":     {&config.CommentsHash, "Hash"},
+		"__rev":    {&config.CommentsRevision, "Revision"},
+		"__hsi":    {&config.CommentsHashSessionID, "HashSessionID"},
+		"__dyn":    {&config.CommentsDynamic, "Dynamic"},
+		"__csr":    {&config.CommentsCSR, "CSR"},
+		"__hsdp":   {&config.CommentsHSDP, "HSDP"},
+		"__hblp":   {&config.CommentsHBLP, "HBLP"},
+		"__sjsp":   {&config.CommentsSJSP, "SJSP"},
+		"fb_dtsg":  {&config.CommentsFbDtsg, "FbDtsg"},
+		"jazoest":  {&config.CommentsJazoest, "Jazoest"},
+		"__spin_r": {&config.CommentsSpinR, "SpinR"},
+		"__spin_t": {&config.CommentsSpinT, "SpinT"},
 	}
 
 	for param, mapping := range paramMappings {
@@ -296,55 +184,21 @@ func updateFacebookConfigFromResponse(config *FacebookConfig, responseHeaders ht
 			regex := regexp.MustCompile(fmt.Sprintf(`"%s":"([^"]+)"`, param))
 			if matches := regex.FindStringSubmatch(responseBody); len(matches) > 1 {
 				newValue := matches[1]
-				switch apiType {
-				case "replies":
-					if newValue != *mapping.repliesField {
-						preview := newValue
-						if len(newValue) > 20 {
-							preview = newValue[:20]
-						}
-						fmt.Printf("🔄 Updating Replies %s: %s...\n", mapping.paramName, preview)
-						*mapping.repliesField = newValue
+				if newValue != *mapping.commentsField {
+					preview := newValue
+					if len(newValue) > 20 {
+						preview = newValue[:20]
 					}
-				case "nested_replies":
-					if newValue != *mapping.nestedRepliesField {
-						preview := newValue
-						if len(newValue) > 20 {
-							preview = newValue[:20]
-						}
-						fmt.Printf("🔄 Updating Nested Replies %s: %s...\n", mapping.paramName, preview)
-						*mapping.nestedRepliesField = newValue
-					}
-				default:
-					if newValue != *mapping.commentsField {
-						preview := newValue
-						if len(newValue) > 20 {
-							preview = newValue[:20]
-						}
-						fmt.Printf("🔄 Updating Comments %s: %s...\n", mapping.paramName, preview)
-						*mapping.commentsField = newValue
-					}
+					fmt.Printf("🔄 Updating Comments %s: %s...\n", mapping.paramName, preview)
+					*mapping.commentsField = newValue
+					tokensUpdated = true
 				}
 			}
 		}
 	}
 
-	switch apiType {
-	case "replies":
-		fmt.Printf("🔄 Facebook Replies Token Rotation Summary:\n")
-		sessionPreview := config.RepliesSession
-		if len(config.RepliesSession) > 20 {
-			sessionPreview = config.RepliesSession[:20]
-		}
-		fmt.Printf("   RequestID: %s, Session: %s...\n", config.RepliesRequestID, sessionPreview)
-	case "nested_replies":
-		fmt.Printf("🔄 Facebook Nested Replies Token Rotation Summary:\n")
-		sessionPreview := config.NestedRepliesSession
-		if len(config.NestedRepliesSession) > 20 {
-			sessionPreview = config.NestedRepliesSession[:20]
-		}
-		fmt.Printf("   RequestID: %s, Session: %s...\n", config.NestedRepliesRequestID, sessionPreview)
-	default:
+	// Always show the summary if any tokens were updated
+	if tokensUpdated {
 		fmt.Printf("🔄 Facebook Comments Token Rotation Summary:\n")
 		sessionPreview := config.CommentsSession
 		if len(config.CommentsSession) > 20 {
@@ -412,7 +266,7 @@ func fetchInitialComments(postID string, config *FacebookConfig) (string, error)
 	req.Header.Set("referer", globalPostURL)
 	req.Header.Set("sec-ch-prefers-color-scheme", "light")
 	req.Header.Set("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
-	req.Header.Set("sec-ch-ua-full-version-list", "\"Not)A;Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"138.0.7204.157\", \"Google Chrome\";v=\"138.0.7204.157\"")
+	req.Header.Set("sec-ch-ua-full-version-list", "\"Not)A;Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"138.0.7204.168\", \"Google Chrome\";v=\"138.0.7204.168\"")
 	req.Header.Set("sec-ch-ua-mobile", "?0")
 	req.Header.Set("sec-ch-ua-model", "\"\"")
 	req.Header.Set("sec-ch-ua-platform", "\"Linux\"")
@@ -448,23 +302,23 @@ func fetchInitialComments(postID string, config *FacebookConfig) (string, error)
 		return "", fmt.Errorf("error reading response: %w", err)
 	}
 
-	fmt.Printf("🔍 === Facebook Initial Comments Response ===\n")
-	fmt.Printf("📡 Response Status: %s\n", resp.Status)
-	fmt.Printf("📋 Response Headers:\n")
-	for key, values := range resp.Header {
-		for _, value := range values {
-			fmt.Printf("    %s: %s\n", key, value)
-		}
-	}
-	fmt.Printf("📄 Response Body Length: %d bytes\n", len(body))
-	if len(body) < 2000 {
-		fmt.Printf("📝 Response Body: %s\n", string(body))
-	} else {
-		fmt.Printf("📝 Response Body Sample (first 2000 chars): %s...\n", string(body[:2000]))
-	}
-	fmt.Printf("🔍 === End Facebook Initial Comments Response ===\n\n")
+	// fmt.Printf("🔍 === Facebook Initial Comments Response ===\n")
+	// fmt.Printf("📡 Response Status: %s\n", resp.Status)
+	// fmt.Printf("📋 Response Headers:\n")
+	// for key, values := range resp.Header {
+	// 	for _, value := range values {
+	// 		fmt.Printf("    %s: %s\n", key, value)
+	// 	}
+	// }
+	// fmt.Printf("📄 Response Body Length: %d bytes\n", len(body))
+	// if len(body) < 2000 {
+	// 	fmt.Printf("📝 Response Body: %s\n", string(body))
+	// } else {
+	// 	fmt.Printf("📝 Response Body Sample (first 2000 chars): %s...\n", string(body[:2000]))
+	// }
+	// fmt.Printf("🔍 === End Facebook Initial Comments Response ===\n\n")
 
-	updateFacebookConfigFromResponse(config, resp.Header, string(body), "comments")
+	updateFacebookConfigFromResponse(config, resp.Header, string(body))
 
 	return string(body), nil
 }
@@ -509,8 +363,8 @@ func fetchPaginatedComments(cursor, postID string, config *FacebookConfig) (stri
 	req.Header.Set("priority", "u=1, i")
 	req.Header.Set("referer", globalPostURL)
 	req.Header.Set("sec-ch-prefers-color-scheme", "light")
-	req.Header.Set("sec-ch-ua", "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"")
-	req.Header.Set("sec-ch-ua-full-version-list", "\"Google Chrome\";v=\"137.0.7151.119\", \"Chromium\";v=\"137.0.7151.119\", \"Not/A)Brand\";v=\"24.0.0.0\"")
+	req.Header.Set("sec-ch-ua", "\"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"138\", \"Google Chrome\";v=\"138\"")
+	req.Header.Set("sec-ch-ua-full-version-list", "\"Not)A;Brand\";v=\"8.0.0.0\", \"Chromium\";v=\"138.0.7204.168\", \"Google Chrome\";v=\"138.0.7204.168\"")
 	req.Header.Set("sec-ch-ua-mobile", "?0")
 	req.Header.Set("sec-ch-ua-model", "\"\"")
 	req.Header.Set("sec-ch-ua-platform", "\"Linux\"")
@@ -546,21 +400,24 @@ func fetchPaginatedComments(cursor, postID string, config *FacebookConfig) (stri
 		return "", fmt.Errorf("error reading response: %w", err)
 	}
 
-	fmt.Printf("🔍 === Facebook Paginated Comments Response ===\n")
-	fmt.Printf("📡 Response Status: %s\n", resp.Status)
-	fmt.Printf("📋 Response Headers:\n")
-	for key, values := range resp.Header {
-		for _, value := range values {
-			fmt.Printf("    %s: %s\n", key, value)
-		}
-	}
-	fmt.Printf("📄 Response Body Length: %d bytes\n", len(body))
-	if len(body) < 2000 {
-		fmt.Printf("📝 Response Body: %s\n", string(body))
-	} else {
-		fmt.Printf("📝 Response Body Sample (first 2000 chars): %s...\n", string(body[:2000]))
-	}
-	fmt.Printf("🔍 === End Facebook Paginated Comments Response ===\n\n")
+	// Update tokens from response
+	updateFacebookConfigFromResponse(config, resp.Header, string(body))
+
+	// fmt.Printf("🔍 === Facebook Paginated Comments Response ===\n")
+	// fmt.Printf("📡 Response Status: %s\n", resp.Status)
+	// fmt.Printf("📋 Response Headers:\n")
+	// for key, values := range resp.Header {
+	// 	for _, value := range values {
+	// 		fmt.Printf("    %s: %s\n", key, value)
+	// 	}
+	// }
+	// fmt.Printf("📄 Response Body Length: %d bytes\n", len(body))
+	// if len(body) < 2000 {
+	// 	fmt.Printf("📝 Response Body: %s\n", string(body))
+	// } else {
+	// 	fmt.Printf("📝 Response Body Sample (first 2000 chars): %s...\n", string(body[:2000]))
+	// }
+	// fmt.Printf("🔍 === End Facebook Paginated Comments Response ===\n\n")
 
 	return string(body), nil
 }
@@ -943,7 +800,7 @@ type DirectParentAuthor struct {
 }
 
 func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComment, error) {
-	fmt.Printf("🔍 Starting to fetch all main comments from post: %s\n", postID)
+	fmt.Printf("🔍 Starting to fetch main comments from post: %s\n", postID)
 
 	var allFacebookComments []FacebookComment
 	var currentCursor string
@@ -951,8 +808,9 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 	hasNextPage := true
 	retryCount := 0
 	maxRetries := 5
-	mxc := 500
+	const maxComments = 500
 
+	fmt.Printf("⚠️  Comment limit: %d main comments maximum\n", maxComments)
 	fmt.Printf("📄 Fetching comments page %d...\n", pageCount)
 	var response string
 	var err error
@@ -992,12 +850,20 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 		return nil, fmt.Errorf("error extracting initial comments: %w", err)
 	}
 
-	allFacebookComments = append(allFacebookComments, pageFacebookComments...)
-	fmt.Printf("✅ Page %d: Found %d comments (Total: %d)\n", pageCount, len(pageFacebookComments), len(allFacebookComments))
+	// Filter only main comments (no replies)
+	var mainComments []FacebookComment
+	for _, comment := range pageFacebookComments {
+		if comment.CommentParent == nil && comment.CommentDirectParent == nil {
+			mainComments = append(mainComments, comment)
+		}
+	}
 
-	if len(allFacebookComments) >= mxc {
-		allFacebookComments = allFacebookComments[:mxc]
-		fmt.Printf("🛑 Reached max comments limit (%d)\n", mxc)
+	allFacebookComments = append(allFacebookComments, mainComments...)
+	fmt.Printf("✅ Page %d: Found %d main comments (Total: %d)\n", pageCount, len(mainComments), len(allFacebookComments))
+
+	if len(allFacebookComments) >= maxComments {
+		allFacebookComments = allFacebookComments[:maxComments]
+		fmt.Printf("🛑 Reached comment limit of %d comments. Stopping extraction.\n", maxComments)
 		return allFacebookComments, nil
 	}
 
@@ -1067,12 +933,20 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 			break
 		}
 
-		allFacebookComments = append(allFacebookComments, pageFacebookComments...)
-		fmt.Printf("✅ Page %d: Found %d comments (Total: %d)\n", pageCount, len(pageFacebookComments), len(allFacebookComments))
+		// Filter only main comments (no replies)
+		var mainComments []FacebookComment
+		for _, comment := range pageFacebookComments {
+			if comment.CommentParent == nil && comment.CommentDirectParent == nil {
+				mainComments = append(mainComments, comment)
+			}
+		}
 
-		if len(allFacebookComments) >= mxc {
-			allFacebookComments = allFacebookComments[:mxc]
-			fmt.Printf("🛑 Reached max comments limit (%d)\n", mxc)
+		allFacebookComments = append(allFacebookComments, mainComments...)
+		fmt.Printf("✅ Page %d: Found %d main comments (Total: %d)\n", pageCount, len(mainComments), len(allFacebookComments))
+
+		if len(allFacebookComments) >= maxComments {
+			allFacebookComments = allFacebookComments[:maxComments]
+			fmt.Printf("🛑 Reached comment limit of %d comments. Stopping extraction.\n", maxComments)
 			break
 		}
 
@@ -1088,13 +962,11 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 		pageCount++
 	}
 
-	mainComments, totalReplies, totalAll := CountFacebookCommentsAndReplies(allFacebookComments)
+	mainCommentsCount := CountFacebookComments(allFacebookComments)
 	fmt.Printf("📊 Facebook Main Comments Summary:\n")
 	fmt.Printf("   📄 Pages fetched: %d\n", pageCount-1)
-	fmt.Printf("   📝 Main comments: %d\n", mainComments)
-	fmt.Printf("   💬 Total replies: %d\n", totalReplies)
-	fmt.Printf("   🔢 Total items: %d\n", totalAll)
-	fmt.Printf("📊 Total comments fetched: %d items from %d pages\n", totalAll, pageCount-1)
+	fmt.Printf("   📝 Main comments: %d\n", mainCommentsCount)
+	fmt.Printf("📊 Total main comments fetched: %d items from %d pages\n", mainCommentsCount, pageCount-1)
 
 	return allFacebookComments, nil
 }
@@ -1247,17 +1119,22 @@ func main() {
 
 	startTime := time.Now()
 
+	fmt.Println("📱 Facebook Comment Scraper (Free Limited Version)")
+	fmt.Println("==================================================")
+	fmt.Println("This tool extracts main comments from Facebook posts, reels, and shares.")
+	fmt.Println("⚠️  Limited to 500 main comments maximum per post")
+	fmt.Println()
+	fmt.Println("💎 Need unlimited comments with replies?")
+	fmt.Println("📧 Email: haronkibetrutoh@gmail.com")
+	fmt.Println("📱 WhatsApp: +254718448461")
+	fmt.Println()
+
 	var urlArg string
 
 	if len(os.Args) > 1 {
 		urlArg = os.Args[1]
 	} else {
-
-		fmt.Println("🚀 Facebook Comments & Replies Scraper")
-		fmt.Println("=====================================")
-		fmt.Println("Please enter a Facebook post URL or share link:")
-		fmt.Print("➡️ ")
-
+		fmt.Print("🔗 Enter Facebook URL (post/reel/share): ")
 		scanner := bufio.NewScanner(os.Stdin)
 		if scanner.Scan() {
 			urlArg = scanner.Text()
@@ -1304,18 +1181,12 @@ func main() {
 
 	fmt.Printf("✅ Successfully fetched %d main comments\n", len(comments))
 
-	fmt.Println("📥 Fetching replies for comments...")
-	var allComments []FacebookComment
-	allComments = append(allComments, comments...)
-
-	mainComments, totalReplies, totalAll := CountFacebookCommentsAndReplies(allComments)
+	mainCommentsCount := CountFacebookComments(comments)
 	fmt.Printf("📊 Facebook Extraction Summary:\n")
-	fmt.Printf("   📝 Main comments: %d\n", mainComments)
-	fmt.Printf("   💬 Total replies: %d\n", totalReplies)
-	fmt.Printf("   🔢 Total items: %d\n", totalAll)
-	fmt.Printf("📊 Total comments and replies: %d\n", totalAll)
+	fmt.Printf("   📝 Main comments: %d\n", mainCommentsCount)
+	fmt.Printf("📊 Total main comments: %d\n", mainCommentsCount)
 
-	excelPath, err := exportFacebookCommentsToExcel(allComments, urlArg)
+	excelPath, err := exportFacebookCommentsToExcel(comments, urlArg)
 	if err != nil {
 		fmt.Printf("❌ Error exporting to Excel: %v\n", err)
 		return
@@ -1330,7 +1201,8 @@ func main() {
 	fmt.Printf("🎯 Actual processing time: %d minutes %d seconds (%.1f seconds total)\n",
 		minutes, seconds, actualDuration.Seconds())
 	fmt.Printf("📂 Exported comments to Excel: %s\n", excelPath)
-	fmt.Printf("Need more comments and replies?\nContact the developer:\nEmail: haronkibetrutoh@gmail.com\nWhatsApp: +254718448461")
+	fmt.Printf("💎 Need unlimited comments with replies?\n📧 Email: haronkibetrutoh@gmail.com\n📱 WhatsApp: +254718448461")
+	fmt.Println()
 }
 
 func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string) (string, error) {
@@ -1401,55 +1273,20 @@ func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string)
 		}
 	}
 
-	commentsByParent := make(map[string][]int)
-	mainComments := []int{}
-
-	for i, comment := range comments {
-		if comment.CommentParent != nil || comment.CommentDirectParent != nil {
-			var parentID string
-			if comment.CommentParent != nil {
-				parentID = comment.CommentParent.ID
-			} else {
-				parentID = comment.CommentDirectParent.ID
-			}
-			commentsByParent[parentID] = append(commentsByParent[parentID], i)
-		} else {
-
-			mainComments = append(mainComments, i)
-		}
-	}
-
 	row := 2
 
-	var writeCommentWithReplies func(commentIdx int, depth int) int
-	writeCommentWithReplies = func(commentIdx int, depth int) int {
-		comment := comments[commentIdx]
-
+	for _, comment := range comments {
 		createdTime := time.Unix(comment.CreatedTime, 0).Format("2006-01-02 15:04:05")
-
-		isReply := comment.CommentParent != nil || comment.CommentDirectParent != nil
-
-		var parentID, parentAuthor string
-		if comment.CommentParent != nil {
-			parentID = comment.CommentParent.ID
-			parentAuthor = comment.CommentParent.Author.Name
-		} else if comment.CommentDirectParent != nil {
-			parentID = comment.CommentDirectParent.ID
-			parentAuthor = comment.CommentDirectParent.Author.Name
-		}
 
 		likesCount := 0
 		if comment.Feedback.Reactors.CountReduced != "" {
-
 			countStr := comment.Feedback.Reactors.CountReduced
 			if strings.HasSuffix(countStr, "K") {
-
 				baseStr := strings.TrimSuffix(countStr, "K")
 				if base, err := strconv.ParseFloat(baseStr, 64); err == nil {
 					likesCount = int(base * 1000)
 				}
 			} else {
-
 				if count, err := strconv.Atoi(countStr); err == nil {
 					likesCount = count
 				}
@@ -1465,9 +1302,9 @@ func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string)
 			likesCount,
 			comment.Feedback.RepliesFields.TotalCount,
 			comment.Depth,
-			isReply,
-			parentID,
-			parentAuthor,
+			false, // Is Reply - always false for main comments
+			"",    // Parent Comment ID - empty for main comments
+			"",    // Parent Author - empty for main comments
 			comment.Feedback.URL,
 		}
 
@@ -1476,38 +1313,7 @@ func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string)
 			f.SetCellValue(sheetName, cell, value)
 		}
 
-		if comment.Depth > 1 {
-			fmt.Printf("📊 Excel: Writing depth=%d for comment by %s (ID: %s)\n",
-				comment.Depth, comment.Author.Name, comment.ID)
-		}
-
-		if depth > 0 {
-
-			indentStyle, _ := f.NewStyle(&excelize.Style{
-				Fill: excelize.Fill{
-					Type:    "pattern",
-					Color:   []string{fmt.Sprintf("#F8F8F%d", 8-depth)},
-					Pattern: 1,
-				},
-			})
-			if indentStyle != 0 {
-				f.SetCellStyle(sheetName, fmt.Sprintf("A%d", row), fmt.Sprintf("L%d", row), indentStyle)
-			}
-		}
-
 		row++
-
-		if replies, ok := commentsByParent[comment.ID]; ok {
-			for _, replyIdx := range replies {
-				row = writeCommentWithReplies(replyIdx, depth+1)
-			}
-		}
-
-		return row
-	}
-
-	for _, commentIdx := range mainComments {
-		row = writeCommentWithReplies(commentIdx, 0)
 	}
 
 	metaSheetName := "Metadata"
@@ -1526,10 +1332,10 @@ func exportFacebookCommentsToExcel(comments []FacebookComment, sourceURL string)
 		f.SetCellValue(metaSheetName, "B3", len(comments))
 
 		f.SetCellValue(metaSheetName, "A4", "Main Comments")
-		f.SetCellValue(metaSheetName, "B4", len(mainComments))
+		f.SetCellValue(metaSheetName, "B4", len(comments))
 
 		f.SetCellValue(metaSheetName, "A5", "Reply Comments")
-		f.SetCellValue(metaSheetName, "B5", len(comments)-len(mainComments))
+		f.SetCellValue(metaSheetName, "B5", 0)
 	}
 
 	exportDir := "exports"
