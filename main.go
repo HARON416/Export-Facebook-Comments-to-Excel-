@@ -808,9 +808,7 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 	hasNextPage := true
 	retryCount := 0
 	maxRetries := 5
-	const maxComments = 500
-
-	fmt.Printf("⚠️  Comment limit: %d main comments maximum\n", maxComments)
+	// Removed comment limit - now extracts unlimited comments
 	fmt.Printf("📄 Fetching comments page %d...\n", pageCount)
 	var response string
 	var err error
@@ -861,11 +859,7 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 	allFacebookComments = append(allFacebookComments, mainComments...)
 	fmt.Printf("✅ Page %d: Found %d main comments (Total: %d)\n", pageCount, len(mainComments), len(allFacebookComments))
 
-	if len(allFacebookComments) >= maxComments {
-		allFacebookComments = allFacebookComments[:maxComments]
-		fmt.Printf("🛑 Reached comment limit of %d comments. Stopping extraction.\n", maxComments)
-		return allFacebookComments, nil
-	}
+	// Removed comment limit check - now extracts unlimited comments
 
 	if commentsObj, err := extractComments(data); err == nil {
 		if commentsMap, ok := commentsObj.(map[string]any); ok {
@@ -944,11 +938,7 @@ func fetchAllPostComments(postID string, config *FacebookConfig) ([]FacebookComm
 		allFacebookComments = append(allFacebookComments, mainComments...)
 		fmt.Printf("✅ Page %d: Found %d main comments (Total: %d)\n", pageCount, len(mainComments), len(allFacebookComments))
 
-		if len(allFacebookComments) >= maxComments {
-			allFacebookComments = allFacebookComments[:maxComments]
-			fmt.Printf("🛑 Reached comment limit of %d comments. Stopping extraction.\n", maxComments)
-			break
-		}
+		// Removed comment limit check - now extracts unlimited comments
 
 		if commentsObj, err := extractComments(data); err == nil {
 			if commentsMap, ok := commentsObj.(map[string]any); ok {
@@ -1122,7 +1112,7 @@ func main() {
 	fmt.Println("📱 Facebook Comment Scraper (Free Limited Version)")
 	fmt.Println("==================================================")
 	fmt.Println("This tool extracts main comments from Facebook posts, reels, and shares.")
-	fmt.Println("⚠️  Limited to 500 main comments maximum per post")
+	fmt.Println("✅ Unlimited main comments extraction - no limits!")
 	fmt.Println()
 	fmt.Println("💎 Need unlimited comments with replies?")
 	fmt.Println("📧 Email: haronkibetrutoh@gmail.com")

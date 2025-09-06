@@ -1,58 +1,53 @@
-# 📱 Facebook Comment Scraper (Free Limited Version)
+# 📱 Facebook Comment Scraper
 
-Extract main comments from Facebook posts, reels, and shares with ease. This tool is designed for researchers, marketers, and social media analysts who need to analyze Facebook engagement.
+Extract unlimited **main comments** from Facebook posts, reels, and shares with ease. This tool is designed for researchers, marketers, and social media analysts who need to analyze Facebook engagement.
 
-## 🎯 **Free Version Features**
+## 🎯 **Features**
 
-- ✅ Extract up to **500 main comments** per Facebook post
+- ✅ **Unlimited main comments** - no limits on main comments!
 - ✅ Export to Excel with full metadata
 - ✅ Cross-platform executables (Windows/Mac/Linux)
 - ✅ Security verified with VirusTotal scans
 - ✅ Real-time token rotation and progress tracking
 - ✅ Support for various Facebook URL formats
 
-## 💎 **Premium Version Features**
-
-- 🚀 **Unlimited comment extraction** (no 500 limit)
-- 💬 **Full reply and nested comment support**
-- 📊 **Bulk processing** for multiple posts
-- 🔄 **Advanced token management**
-- 📈 **Detailed analytics and insights**
-- 🛡️ **Enhanced security and reliability**
-
 ## 🚀 **Quick Start**
 
 ### Option 1: Download Executable (Recommended)
 
-Download the executable for your operating system:
+Download the executable for your operating system from the `builds/` directory:
 
-| Platform    | Download Link                                                                                                            |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Windows** | [Download Windows Executable](https://www.mediafire.com/file/fog6a065tznm4cb/Export-Facebook-Comments-to-Excel.exe/file) |
-| **Mac**     | [Download Mac Executable](https://www.mediafire.com/file/o4ytgplzvwfc7c1/Export-Facebook-Comments-to-Excel-Mac/file)     |
-| **Linux**   | [Download Linux Executable](https://www.mediafire.com/file/2fso968tirspgj8/Export-Facebook-Comments-to-Excel-Linux/file) |
+| Platform    | Architecture          | File Name                                    |
+| ----------- | --------------------- | -------------------------------------------- |
+| **Windows** | x64 (amd64)           | `facebook-comment-scraper-windows-amd64.exe` |
+| **Linux**   | x64 (amd64)           | `facebook-comment-scraper-linux-amd64`       |
+| **macOS**   | Intel (amd64)         | `facebook-comment-scraper-macos-amd64`       |
+| **macOS**   | Apple Silicon (arm64) | `facebook-comment-scraper-macos-arm64`       |
 
 #### 📥 **Installation Instructions**
 
 **Windows:**
 
-1. Download the `.exe` file
-2. Extract from zip if needed
-3. Double-click to run (no installation required)
-
-**Mac:**
-
-1. Download the `.zip` file
-2. Extract the archive
-3. Right-click the executable → "Open" (first time only)
-4. Run from terminal: `./facebook-scraper`
+1. Download `facebook-comment-scraper-windows-amd64.exe`
+2. Double-click to run (no installation required)
 
 **Linux:**
 
-1. Download the `.zip` file
-2. Extract: `unzip facebook-scraper-linux.zip`
-3. Make executable: `chmod +x facebook-scraper`
-4. Run: `./facebook-scraper`
+1. Download `facebook-comment-scraper-linux-amd64`
+2. Make executable: `chmod +x facebook-comment-scraper-linux-amd64`
+3. Run: `./facebook-comment-scraper-linux-amd64`
+
+**macOS (Intel):**
+
+1. Download `facebook-comment-scraper-macos-amd64`
+2. Make executable: `chmod +x facebook-comment-scraper-macos-amd64`
+3. Run: `./facebook-comment-scraper-macos-amd64`
+
+**macOS (Apple Silicon):**
+
+1. Download `facebook-comment-scraper-macos-arm64`
+2. Make executable: `chmod +x facebook-comment-scraper-macos-arm64`
+3. Run: `./facebook-comment-scraper-macos-arm64`
 
 ### 📸 **Terminal Output Example**
 
@@ -63,18 +58,26 @@ The tool provides real-time feedback during extraction:
 ### Option 2: Build from Source
 
 ```bash
-# Clone the repository
-git clone <repository-url>
+# Navigate to the Facebook scraper directory
 cd FACEBOOK
 
 # Install dependencies
 go mod tidy
 
 # Build the executable
-go build -o facebook-scraper main.go
+go build -o facebook-comment-scraper main.go
 
 # Run the scraper
-./facebook-scraper
+./facebook-comment-scraper
+```
+
+### Option 3: Cross-Platform Build
+
+```bash
+# Use the automated build script
+./build.sh
+
+# This creates executables for all platforms in the builds/ directory
 ```
 
 ## 🔒 **Security Verified**
@@ -109,14 +112,10 @@ All executables have been verified clean by VirusTotal:
 When you run the tool, you'll see real-time progress like this:
 
 ```
-📱 Facebook Comment Scraper (Free Limited Version)
+📱 Facebook Comment Scraper
 ==================================================
 This tool extracts main comments from Facebook posts, reels, and shares.
-⚠️  Limited to 500 main comments maximum per post
-
-💎 Need unlimited comments with replies?
-📧 Email: haronkibetrutoh@gmail.com
-📱 WhatsApp: +254718448461
+✅ Unlimited main comments extraction - no limits!
 
 🔗 Enter Facebook URL (post/reel/share): https://web.facebook.com/share/p/19VpTAJJZo/
 🔍 Detected Facebook share link (type: p) with ID: 19VpTAJJZo
@@ -130,7 +129,7 @@ This tool extracts main comments from Facebook posts, reels, and shares.
 🔑 Initialized Facebook config with token rotation
 📥 Fetching comments...
 🔍 Starting to fetch main comments from post: ZmVlZGJhY2s6cGZiaWQwMm9MaW5pZUdGeXJXZlBIaWpUdXJGMkZVU0FrTUthVUFQZmpNNFZoeXR4a216TXh5RVBjeHRMVHE4ZTJjWnJncE1s
-⚠️  Comment limit: 500 main comments maximum
+✅ Unlimited main comments extraction - no limits!
 📄 Fetching comments page 1...
 🔄 Updating X-Fb-Debug token: UJqr0/hmJwSjZ9PGnvjm...
 🔄 Updating CSP nonce: nsRvsAOC
@@ -152,20 +151,21 @@ This tool extracts main comments from Facebook posts, reels, and shares.
 - 🔄 **Redirect Handling**: Follows Facebook share links to get actual post URLs
 - 🔑 **Token Rotation**: Real-time token updates to maintain session
 - 📊 **Progress Tracking**: Shows comments found per page and total count
-- ⚠️ **Limit Enforcement**: Reminds users of the 500 comment limit
-- 💎 **Premium Promotion**: Contact info for unlimited version
+- ✅ **Unlimited Main Comments**: No limits on main comments
 
 ### Supported URL Formats
 
-The scraper supports various Facebook URL formats:
+The scraper automatically detects and handles various Facebook URL formats:
 
 ```
-✅ https://web.facebook.com/share/p/1AguUnrRzz/
+✅ https://web.facebook.com/share/p/1AguUnrRzz/ (Recommended)
 ✅ https://web.facebook.com/username/posts/pfbid123...
 ✅ https://web.facebook.com/groups/123456789/permalink/123456789/
 ✅ https://web.facebook.com/reel/123456789
 ✅ https://web.facebook.com/permalink.php?story_fbid=123456789
 ```
+
+**💡 Pro Tip**: Share links are recommended as they're most reliable and automatically redirect to the actual post URL.
 
 ### Direct Input
 
@@ -230,12 +230,23 @@ URL Parsing → Token Rotation → Pagination → Comment Filtering → Excel Ge
 
 ## ⚡ **Performance**
 
-- **Speed**: 500 comments extracted in ~1 minute
-- **Reliability**: Automatic retry logic with exponential backoff
+- **Speed**: Fast extraction with unlimited main comments (no reply limits)
+- **Reliability**: Automatic retry logic with intelligent error handling
 - **Memory**: Efficient memory usage for large datasets
+- **Token Management**: Real-time Facebook token rotation for continuous operation
+- **Pagination**: Handles large comment threads with automatic pagination
 - **Rate Limiting**: Respects Facebook's API limits to avoid blocking
 - **Success Rate**: 95%+ success rate on public Facebook posts
-- **File Size**: Excel files typically 50-200KB for 500 comments
+
+## 🛠️ **Technical Specifications**
+
+- **Language**: Go 1.24.5
+- **Dependencies**:
+  - `github.com/xuri/excelize/v2` - Excel file generation
+- **Architecture**: Cross-platform (Windows, Linux, macOS)
+- **Build Size**: ~10MB (statically linked)
+- **Memory Usage**: Efficient for large datasets
+- **API**: Facebook GraphQL with token rotation
 
 ## 🎯 **Target Audience**
 
@@ -257,26 +268,9 @@ URL Parsing → Token Rotation → Pagination → Comment Filtering → Excel Ge
 - Analyze comment sentiment
 - Track viral content performance
 
-## 💎 **Need More? Get Premium!**
+## 💎 **Need Replies & Nested Comments?**
 
-### Why Upgrade?
-
-- **500 comments not enough?** Get unlimited extraction
-- **Need replies?** Extract nested comment threads
-- **Multiple posts?** Bulk processing capabilities
-- **Advanced analytics?** Detailed insights and reports
-
-### Premium Features Include:
-
-- ✅ **Unlimited comment extraction** (no 500 limit)
-- ✅ **Full reply and nested comment support**
-- ✅ **Bulk processing** for multiple posts
-- ✅ **Advanced token management**
-- ✅ **Detailed analytics and insights**
-- ✅ **Enhanced security and reliability**
-- ✅ **Priority support and updates**
-
-### 📧 **Contact for Premium Version**
+This version extracts unlimited **main comments only**. For replies and nested comments, upgrade to premium:
 
 **📧 Email**: haronkibetrutoh@gmail.com  
 **📱 WhatsApp**: +254718448461
@@ -306,8 +300,14 @@ A: This usually means Facebook's API has changed. The tool will automatically re
 **Q: Excel file is empty**
 A: Check that the Facebook URL is correct and the post has comments. The tool only extracts main comments (no replies).
 
-**Q: Tool stops at 500 comments**
-A: This is the free version limit. Contact us for unlimited extraction.
+**Q: "Could not extract post ID from URL"**
+A: Make sure you're using a valid Facebook URL. Share links work best: `https://web.facebook.com/share/p/...`
+
+**Q: Tool stops extracting comments**
+A: The tool extracts unlimited main comments. If it stops, it means all available main comments have been extracted.
+
+**Q: Antivirus flags the executable**
+A: This is a false positive due to the scraping nature. The executables are clean and safe to use.
 
 ### Need Help?
 
@@ -330,7 +330,7 @@ For support with the free version:
 
 ---
 
-**💎 Need unlimited comments with replies? Contact us for the premium version!**
+**💎 Need replies and nested comments? Upgrade to premium!**
 
 **📧 Email**: haronkibetrutoh@gmail.com  
 **📱 WhatsApp**: +254718448461
