@@ -2,6 +2,8 @@
 
 Extract unlimited **main comments** from Facebook posts, reels, and shares with ease. This tool is designed for researchers, marketers, and social media analysts who need to analyze Facebook engagement.
 
+> **💡 Need Replies?**: For nested comment support, upgrade to premium version.
+
 ## 🎯 **Features**
 
 - ✅ **Unlimited main comments** - no limits on main comments!
