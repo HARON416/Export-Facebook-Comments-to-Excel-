@@ -2,7 +2,7 @@
 
 Extract unlimited **main comments** from Facebook posts, reels, and shares with ease. This tool is designed for researchers, marketers, and social media analysts who need to analyze Facebook engagement.
 
-> **💡 Need Replies?**: For nested comment support, upgrade to premium version.
+> **💡 Need Replies?**: For nested comment support, upgrade to premium version or try [Export Comments to Excel](https://exportcomments.softwrhq.com/).
 
 ## 🎯 **Features**
 
@@ -276,6 +276,16 @@ This version extracts unlimited **main comments only**. For replies and nested c
 
 **📧 Email**: haronkibetrutoh@gmail.com  
 **📱 WhatsApp**: +254718448461
+
+### 🌐 **Alternative Online Tool**
+
+For a web-based solution that supports Facebook, Instagram, and TikTok comments with Excel export:
+
+**🔗 [Export Comments to Excel](https://exportcomments.softwrhq.com/)**
+
+- Export your first 1000 comments free
+- Supports Facebook, Instagram, and TikTok
+- Web-based interface - no downloads required
 
 ## 🤝 **Contributing**
 
